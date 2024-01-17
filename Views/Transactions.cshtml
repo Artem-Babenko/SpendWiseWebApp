@@ -1,25 +1,35 @@
 ﻿@model List<Transaction> 
 
 @{
+    // Set metadata for the view.
     ViewBag.Title = "SpendWise | Transactions";
     ViewBag.Page = "Transactions";
     Layout = "_Layout";
-    List<Category> categories = ViewBag.Categories;
 
-    int totalIncomePerMonth = 0;
-    int totalExpensePerMonth = 0;
-    foreach(var transaction in Model)
-    {
-        if (transaction.CreationTime > DateTime.Now - TimeSpan.FromDays(30) && transaction.CreationTime < DateTime.Now)
-        {
-            if (transaction.IsIncome)
-                totalIncomePerMonth += (int)transaction.Amount;
-            else
-                totalExpensePerMonth += (int)transaction.Amount;
-        }
-    }
+    DateTime thirtyDaysAgo = DateTime.Now - TimeSpan.FromDays(30);
+    // Calculate total income for the last 30 days.
+    int totalIncomePerMonth = Model
+        .Where(transaction => transaction.CreationTime > thirtyDaysAgo && transaction.CreationTime < DateTime.Now && transaction.IsIncome)
+        .Sum(transaction => (int)transaction.Amount);
+    // Calculate total expense for the last 30 days.
+    int totalExpensePerMonth = Model
+        .Where(transaction => transaction.CreationTime > thirtyDaysAgo && transaction.CreationTime < DateTime.Now && !transaction.IsIncome)
+        .Sum(transaction => (int)transaction.Amount);
+
+    // Calculate average income and expense per day for the last 30 days.
     int averageIncomePerDay = totalIncomePerMonth / 30;
     int averageExpensePerDay = totalExpensePerMonth / 30;
+
+    // Extract expense transactions and group them by category to calculate total amounts.
+    var expenseTransactions = Model.Where(t => !t.IsIncome);
+    var categoryAmounts = expenseTransactions
+        .GroupBy(t => t.Category!.Name)
+        .Select(group => new { Category = group.Key, TotalAmount = group.Sum(t => t.Amount) })
+        .ToList();
+
+    // Find the most and least expensive category based on total amount.
+    var mostExpensiveCategory = categoryAmounts.OrderByDescending(c => c.TotalAmount).FirstOrDefault()?.Category;
+    var leastExpensiveCategory = categoryAmounts.OrderBy(c => c.TotalAmount).FirstOrDefault()?.Category;
 }
 
 <!-- Page content | Statistic -->
@@ -33,11 +43,11 @@
         average expense per day
     </p>
     <p class="most">
-        <span>Food</span>
+        <span>@mostExpensiveCategory</span>
         most expense
     </p>
     <p class="least">
-        <span>Trevel</span>
+        <span>@leastExpensiveCategory</span>
         least expense
     </p>
 </div>
@@ -60,9 +70,9 @@
     <!-- Category filter -->
     <select class="category">
         <option value="default" selected>Any category</option>
-        @foreach (var category in categories)
+        @foreach (var category in ViewBag.Categories)
         {
-            <option value="@category.Id" class="@(category.IsIncome ? "income" : "expense")">
+            <option value="@category.Name" class="@(category.IsIncome ? "income" : "expense")">
                 @category.Name
             </option>
         }
@@ -83,7 +93,7 @@
     </thead>
 
     <tbody>
-        @foreach(var transcaction in Model)
+        @foreach (var transcaction in Model)
         {
             <tr>
                 @{ string type = transcaction.IsIncome ? "Income" : "Expense";}
