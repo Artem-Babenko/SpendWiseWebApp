@@ -30,7 +30,7 @@ public class TransactionController : Controller
 
         // Retrieve categories from the database and store them in the ViewBag for use in the view.
         ViewBag.Categories = await db.Categories.ToListAsync();
-        return View("/Views/Transactions.cshtml", transactions);
+        return View("/Views/Transactions.cshtml", transactions.OrderByDescending(t => t.CreationTime).ToList());
     }
 
     // HTTP GET method for rendering the BudgetPage.
