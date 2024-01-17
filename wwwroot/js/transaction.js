@@ -2,7 +2,7 @@
 const searchInput = document.getElementById('search');
 const transactionElements = document.querySelectorAll('table tbody tr');
 const typeSelect = document.querySelector('.sortbar .type');
-const categotySelect = document.querySelector('.sortbar .category');
+const categorySelect = document.querySelector('.sortbar .category');
 
 // The 'input' event on the 'searchInput' element.
 searchInput.addEventListener('input', () => {
@@ -27,7 +27,7 @@ typeSelect.addEventListener('change', function () {
     var selectedValue = this.value;
 
     // Loop through each option in the 'categotySelect' dropdown.
-    for (const option of categotySelect.options) {
+    for (const option of categorySelect.options) {
         // Hide the option and deselect it.
         option.style.display = "none";
         option.selected = false;
@@ -49,5 +49,21 @@ typeSelect.addEventListener('change', function () {
     }
 
     // Set the default option as selected in the 'categotySelect' dropdown.
-    categotySelect.querySelector('option.default').selected = true;
+    categorySelect.querySelector('option.default').selected = true;
+});
+
+// When selecting a transaction category,
+// the list of transaction is updated.
+categorySelect.addEventListener('change', function () {
+    var selectedValue = this.value;
+
+    // Loop through each transaction element.
+    for (const transactionElement of transactionElements) {
+        // Get the category text content of the current transaction element.
+        const categoryText = transactionElement.querySelector('.category').textContent;
+        // Check if the selected value is "default" or matches the category of the transaction.
+        const isMatch = selectedValue === "default" || categoryText === selectedValue;
+        // Set the display style based on whether it's a match or not.
+        transactionElement.style.display = isMatch ? "table-row" : "none";
+    }
 });
