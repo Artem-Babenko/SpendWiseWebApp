@@ -1,0 +1,112 @@
+﻿@model List<Transaction> 
+
+@{
+    ViewBag.Title = "SpendWise | Transactions";
+    ViewBag.Page = "Transactions";
+    Layout = "_Layout";
+    List<Category> categories = ViewBag.Categories;
+
+    int totalIncomePerMonth = 0;
+    int totalExpensePerMonth = 0;
+    foreach(var transaction in Model)
+    {
+        if (transaction.CreationTime > DateTime.Now - TimeSpan.FromDays(30) && transaction.CreationTime < DateTime.Now)
+        {
+            if (transaction.IsIncome)
+                totalIncomePerMonth += (int)transaction.Amount;
+            else
+                totalExpensePerMonth += (int)transaction.Amount;
+        }
+    }
+    int averageIncomePerDay = totalIncomePerMonth / 30;
+    int averageExpensePerDay = totalExpensePerMonth / 30;
+}
+
+<!-- Page content | Statistic -->
+<div class="statistic">
+    <p class="income">
+        <span>$ @averageIncomePerDay</span>
+        average income per day
+    </p>
+    <p class="expense">
+        <span>$ @averageExpensePerDay</span>
+        average expense per day
+    </p>
+    <p class="most">
+        <span>Food</span>
+        most expense
+    </p>
+    <p class="least">
+        <span>Trevel</span>
+        least expense
+    </p>
+</div>
+
+<!-- Sortbar -->
+<div class="sortbar">
+    <!-- Search filter -->
+    <div class="search">
+        <i class='bx bx-search-alt'></i>
+        <input id="search" placeholder="Search..."/>
+    </div>
+
+    <!-- Type filter -->
+    <select class="type">
+        <option value="any" selected>Any type</option>
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+    </select>
+
+    <!-- Category filter -->
+    <select class="category">
+        <option value="default" selected>Any category</option>
+        @foreach (var category in categories)
+        {
+            <option value="@category.Id" class="@(category.IsIncome ? "income" : "expense")">
+                @category.Name
+            </option>
+        }
+    </select>
+</div>
+
+<!-- Transaction table -->
+<table>
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Title</th>
+            <th>Amount</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach(var transcaction in Model)
+        {
+            <tr>
+                @{ string type = transcaction.IsIncome ? "Income" : "Expense";}
+                <td class="@type.ToLower()">
+                    <span>@type</span>
+                </td>
+                <td class="title">@transcaction.Title</td>
+                <td class="amount">$ @transcaction.Amount</td>
+                <td class="category">@transcaction.Category?.Name</td>
+                <td class="date">@transcaction.CreationTime.ToString("dd.MM.yy")</td>
+                <td class="actions">
+                    <a asp-controller="Transaction" asp-action="EditPage" asp-route-id="@transcaction.Id">
+                        <i class='bx bx-pencil'></i>
+                    </a>
+                    <a asp-controller="Transaction" asp-action="Delete" asp-route-id="@transcaction.Id">
+                        <i class='bx bx-trash'></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Includes -->
+<link rel="stylesheet" href="/css/transactions.css" />
+<script src="/js//transaction.js"></script>

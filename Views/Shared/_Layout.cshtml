@@ -1,0 +1,93 @@
+﻿
+@{
+    // Function of set the "active" class of the link-key that points to the current page.
+    string IsLinkActive(string controller, string action)
+    {
+        string currentController = ViewContext.RouteData.Values["controller"] as string ?? "";
+        string currentAction = ViewContext.RouteData.Values["action"] as string ?? "";
+
+        return (currentController.Equals(controller, StringComparison.OrdinalIgnoreCase) &&
+                currentAction.Equals(action, StringComparison.OrdinalIgnoreCase)) ? "active" : "";
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="/css/layout.css" />
+    <meta name="viewport" content="width=device-width" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+
+    <nav>
+        <!-- Site name -->
+        <div class="site-name">
+            <i class='bx bx-line-chart'></i>
+            Spend<span>Wise</span>
+        </div>
+
+        <!-- Links to open pages -->
+        <div class="pages">
+            <a asp-controller="Transaction" asp-action="OverviewPage" class="@IsLinkActive("Transaction", "OverviewPage")">
+                <i class='bx bxs-pie-chart-alt-2'></i>
+                Overview
+            </a>
+            <a asp-controller="Transaction" asp-action="CreatePage" class="@IsLinkActive("Transaction", "CreatePage")">
+                <i class='bx bx-add-to-queue'></i>
+                Create new
+            </a>
+            <a asp-controller="Transaction" asp-action="TransactionsPage" class="@IsLinkActive("Transaction", "TransactionsPage") @IsLinkActive("Transaction", "EditPage")">
+                <i class='bx bx-credit-card'></i>
+                Transactions
+            </a>
+            <a asp-controller="Transaction" asp-action="BudgetPage" class="@IsLinkActive("Transaction", "BudgetPage")">
+                <i class='bx bx-wallet'></i>
+                Budget
+            </a>
+            <a asp-controller="User" asp-action="ProfilePage" class="@IsLinkActive("User", "ProfilePage")">
+                <i class='bx bx-id-card'></i>
+                Profile
+            </a>
+            <a asp-controller="User" asp-action="SettingsPage" class="@IsLinkActive("User", "SettingsPage")">
+                <i class='bx bx-cog'></i>
+                Settings
+            </a>
+            <a asp-controller="User" asp-action="Logout">
+                <i class='bx bx-log-out'></i>
+                Sign Out
+            </a>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Panel at the top of the site -->
+        <div class="top">
+            <h2>
+                @ViewBag.Page
+            </h2>
+
+            <!-- User info -->
+            <div class="user">               
+                <i class='bx bxs-bell'></i>
+
+                <div class="photo">
+                    <i class='bx bx-user'></i>
+                </div>
+
+                <a asp-controller="User" asp-action="ProfilePage" class="name">
+                    @(User.FindFirst(ClaimTypes.Name)?.Value) @(User.FindFirst(ClaimTypes.Surname)?.Value)
+                </a>
+            </div>
+        </div>
+
+        <!-- Content -->
+        <div class="content">
+            @RenderBody()
+        </div>
+    </main>
+
+    <script src="/js/layout.js"></script>
+</body>
+</html>

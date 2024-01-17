@@ -1,0 +1,44 @@
+﻿@model List<Category>
+
+@{
+    ViewBag.Title = "SpendWise | Create";
+    ViewBag.Page = "Transaction create";
+    Layout = "_Layout";
+}
+
+<!-- Page content | Create Form -->
+<form asp-controller="Transaction" asp-action="Create">
+    <!-- Title -->
+    <input class="title" name="title" placeholder="Title..." required />
+
+    <!-- Amount -->
+    <div class="amount" >
+        $ <input class="amount-input" name="amount" placeholder="100..." required />
+    </div>
+
+    <!-- Type -->
+    <select class="type" name="type" required>
+        <option value="income" selected class="income">Income</option>
+        <option value="expense" class="expense">Expense</option>
+    </select>
+
+    <!-- Category -->
+    <select class="category" name="categoryId" required>
+        <option class="default" hidden selected disabled>Category...</option>
+        @foreach (Category category in Model)
+        {
+            <option value="@category.Id"
+                    class="@(category.IsIncome ? "income" : "expense")"
+                    style="@(category.IsIncome ? "" : "display: none")">
+                @category.Name
+            </option>
+        }
+    </select>
+
+    <!-- Submit button -->
+    <button type="submit">Create</button>
+</form>
+
+<!-- Includes -->
+<link rel="stylesheet" href="/css/create.css" />
+<script src="/js/create.js"></script>

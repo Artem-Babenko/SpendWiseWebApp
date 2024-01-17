@@ -1,0 +1,45 @@
+﻿@model Transaction
+
+@{
+    ViewBag.Title = "SpendWise | Edit";
+    ViewBag.Page = "Transaction editing";
+    Layout = "_Layout";
+    List<Category> categories = ViewBag.Categories;
+}
+
+<!-- Page content | Edit Form -->
+<form asp-controller="Transaction" asp-action="Edit" asp-route-id="@Model.Id">
+    <!-- Title -->
+    <input class="title" name="title" placeholder="Title..." required value="@Model.Title" />
+
+    <!-- Amount -->
+    <div class="amount">
+        $ <input class="amount-input" name="amount" placeholder="100..." required value="@Model.Amount" />
+    </div>
+
+    <!-- Type -->
+    <select class="type" name="type" required>
+        <option value="income" class="income" selected="@Model.IsIncome">Income</option>
+        <option value="expense" class="expense" selected="@(Model.IsIncome ? false : true)">Expense</option>
+    </select>
+
+    <!-- Category -->
+    <select class="category" name="categoryId" required>
+        <option class="default" hidden selected disabled>Category...</option>
+        @foreach (Category category in categories)
+        {
+            <option value="@category.Id" 
+                class="@(Model.IsIncome ? "income" : "expense")" 
+                style="@(Model.IsIncome ? "" : "display: none;")" 
+                selected="@(Model.Category!.Name == category.Name)">
+                    @category.Name
+            </option>
+        }
+    </select>
+
+    <!-- Submit button -->
+    <button type="submit">Save</button>
+</form>
+
+<!-- Includes -->
+<link rel="stylesheet" href="/css/create.css" />

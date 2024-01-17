@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/css/login.css" />
+    <meta name="viewport" content="width=device-width" />
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>SpendWise | Login</title>
+</head>
+<body>
+
+    <div class="site-name">
+        <i class='bx bx-line-chart'></i>
+        Spend<span>Wise</span>
+    </div>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <div class="form">
+                <h1>Create Account</h1>
+                <span>use your email for registeration</span>
+                <input class="name" type="text" placeholder="Name">
+                <input class="surname" type="text" placeholder="Surname">
+                <input class="email" type="email" placeholder="Email">
+                <input class="password" type="password" placeholder="Password">
+                <div class="error-message">Not all fields are entered</div>
+                <button id="signUp">Sign Up</button>
+            </div>
+        </div>
+        <div class="form-container sign-in">
+            <div class="form">
+                <h1>Sign In</h1>
+                <span>use your email and password</span>
+                <input class="email" type="email" placeholder="Email">
+                <input class="password" type="password" placeholder="Password">
+                <div class="error-message">Invalid email or password</div>
+                <button id="signIn">Sign In</button>
+            </div>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Welcome Back!</h1>
+                    <p>Enter your personal details to use all of SpendWise features</p>
+                    <button class="hidden" id="login">Sign In</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Hello, Friend!</h1>
+                    <p>Register with your personal details to use all of SpendWise features</p>
+                    <button class="hidden" id="register">Sign Up</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="created">
+        created by Artem Babenko
+    </div>
+
+    <script src="/js/login.js"></script>
+</body>
+</html>

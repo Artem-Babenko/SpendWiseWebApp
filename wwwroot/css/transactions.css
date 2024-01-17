@@ -1,0 +1,208 @@
+﻿
+.statistic{
+    border-radius: 20px;
+    margin: 0 40px 20px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 40px;
+    gap: 10px;
+}
+
+.statistic p{
+    display: flex;
+    flex-direction: column;
+    color: #777;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.statistic p span{
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.statistic p.income span{
+    color: #11a700;
+}
+
+.statistic p.expense span{
+    color: #dd2f2f;
+}
+
+.statistic p.most span{
+    color: #d90092;
+}
+
+.statistic p.least span{
+    color: #d95d00;
+}
+
+/* Sort bar */
+
+.sortbar{
+    display: flex;
+    align-items: center;
+    margin: 0 40px;
+    gap: 20px;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    padding: 5px 10px;
+    margin-right: 40px;
+    width: 100%;
+}
+
+.search input{
+    border: none;
+    outline: none;
+    padding: 5px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.search i{
+    font-size: 18px;
+    color: #555;
+    padding: 0 10px;
+}
+
+.sortbar select {
+    border: none;
+    outline: none;
+    padding: 10px 20px;
+    background-color: white;
+    font-size: 14px;
+    border-radius: 20px;
+    color: #444;
+}
+
+/* Table */
+
+table {
+    border-collapse: collapse;
+    margin: 20px 40px;
+    width: calc(100% - 80px);
+}
+
+table thead tr th {
+    background-color: white;
+    padding: 10px 20px;
+    font-weight: 400;
+    color: #333;
+    font-size: 15px;
+}
+
+table thead tr th:first-of-type{
+    border-radius: 20px 0 0 20px;
+}
+
+table thead tr th:last-of-type {
+    border-radius: 0 20px 20px 0;
+}
+
+tbody:before {
+    content: "@";
+    display: block;
+    line-height: 20px;
+    text-indent: -99999px;
+}
+
+tbody tr {
+    cursor: pointer;
+}
+
+tbody tr td {
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    color: #444;
+}
+
+tbody tr:first-of-type td{
+    padding-top: 20px;
+}
+
+tbody tr:last-of-type td {
+    padding-bottom: 20px;
+}
+
+tbody tr:first-of-type td:first-of-type {
+    border-radius: 20px 0 0 0;
+}
+
+tbody tr:first-of-type td:last-of-type {
+    border-radius: 0 20px 0 0;
+}
+
+tbody tr:last-of-type td:first-of-type {
+    border-radius: 0 0 0 20px;
+}
+
+tbody tr:last-of-type td:last-of-type {
+    border-radius: 0 0 20px 0;
+}
+
+tbody tr td.title{
+    text-align: left;
+    width: 100%;
+}
+
+tbody tr td.income, tbody tr td.expense{
+    padding-left: 20px;
+}
+
+tbody tr td.income span {
+    color: #11a700;
+    padding: 3px 6px;
+    background-color: #11a70025;
+    border-radius: 10px;
+}
+
+tbody tr td.expense span {
+    color: #dd2f2f;
+    padding: 3px 6px;
+    background-color: #dd2f2f2a;
+    border-radius: 10px;
+}
+
+tbody tr td.category {
+    color: #6800d0;
+    min-width: 120px;
+}
+
+tbody tr td.date{
+    color: #888;
+}
+
+tbody tr td.actions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+tbody tr td.actions a{
+    text-decoration: none;
+    color: #6800d0;
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 50px;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+tbody tr td.actions a:hover{
+    background-color: #6800d0;
+    color: white;
+}

@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "SpendWise | Overview";
+    ViewBag.Page = "Overview";
+    Layout = "_Layout";
+}
+
+<!-- Page content -->
+<div class="cards">
+
+    <!-- Cash income -->
+    <div class="card income">
+        <div class="icon">
+            <i class='bx bx-up-arrow-alt'></i>
+        </div>
+        <p>
+            <span>$ 342</span>
+            Income for the month
+        </p>
+    </div>
+
+    <!-- Cash expanses -->
+    <div class="card expanses">
+        <div class="icon">
+            <i class='bx bx-down-arrow-alt'></i>
+        </div>
+        <p>
+            <span>$ 234</span>
+            Expenses per month
+        </p>
+    </div>
+
+    <!-- Added transactions -->
+    <div class="card added">
+        <div class="icon">
+            <i class='bx bx-transfer-alt'></i>
+        </div>
+        <p>
+            <span>43</span>
+            Added transactions
+        </p>
+    </div>
+</div>
+
+<!-- Includes -->
+<link rel="stylesheet" href="/css/overview.css" />
