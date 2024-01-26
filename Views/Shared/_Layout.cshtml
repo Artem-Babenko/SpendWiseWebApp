@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/css/layout.css" />
+    <link rel="stylesheet" href="/css/layout.css" asp-append-version="true" />
     <meta name="viewport" content="width=device-width" />
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>@ViewBag.Title</title>
@@ -65,6 +65,7 @@
         <!-- Panel at the top of the site -->
         <div class="top">
             <h2>
+                <i class='bx bx-menu menu-button'></i>
                 @ViewBag.Page
             </h2>
 
@@ -88,6 +89,6 @@
         </div>
     </main>
 
-    <script src="/js/layout.js"></script>
+    <script src="/js/layout.js" asp-append-version="true"></script>
 </body>
 </html>
