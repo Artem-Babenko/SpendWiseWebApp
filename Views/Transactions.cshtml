@@ -69,7 +69,7 @@
 
     <!-- Category filter -->
     <select class="category">
-        <option value="default" selected>Any category</option>
+        <option value="default" class="default" selected>Any category</option>
         @foreach (var category in ViewBag.Categories)
         {
             <option value="@category.Name" class="@(category.IsIncome ? "income" : "expense")">
@@ -80,43 +80,55 @@
 </div>
 
 <!-- Transaction table -->
-<table>
-    <thead>
-        <tr>
-            <th>Type</th>
-            <th>Title</th>
-            <th>Amount</th>
-            <th>Category</th>
-            <th>Date</th>
-            <th></th>
-        </tr>
-    </thead>
+<table class="main">
+    <tr>
+        <td>
+            <table class="head">
+                <tr>
+                    <th class="type">Type</th>
+                    <th class="title">Title</th>
+                    <th class="amount">Amount</th>
+                    <th class="category">Category</th>
+                    <th class="date">Date</th>
+                    <th class="actions"></th>
+                </tr>
+            </table>
+        </td>
+    </tr>
 
-    <tbody>
-        @foreach (var transcaction in Model)
-        {
-            <tr>
-                @{ string type = transcaction.IsIncome ? "Income" : "Expense";}
-                <td class="@type.ToLower()">
-                    <span>@type</span>
-                </td>
-                <td class="title">@transcaction.Title</td>
-                <td class="amount">$ @transcaction.Amount</td>
-                <td class="category">@transcaction.Category?.Name</td>
-                <td class="date">@transcaction.CreationTime.ToString("dd.MM.yy")</td>
-                <td class="actions">
-                    <a asp-controller="Transaction" asp-action="EditPage" asp-route-id="@transcaction.Id">
-                        <i class='bx bx-pencil'></i>
-                    </a>
-                    <a asp-controller="Transaction" asp-action="Delete" asp-route-id="@transcaction.Id">
-                        <i class='bx bx-trash'></i>
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
+    <tr>
+        <td>
+            <div class="scroll-space">
+                <table>
+                    @foreach (var transcaction in Model)
+                    {
+                        <tr>
+                            @{
+                                string type = transcaction.IsIncome ? "Income" : "Expense";
+                            }
+                            <td class="@type.ToLower() type">
+                                <span>@type</span>
+                            </td>
+                            <td class="title">@transcaction.Title</td>
+                            <td class="amount">$ @transcaction.Amount</td>
+                            <td class="category">@transcaction.Category?.Name</td>
+                            <td class="date">@transcaction.CreationTime.ToString("dd.MM.yy")</td>
+                            <td class="actions">
+                                <a asp-controller="Transaction" asp-action="EditPage" asp-route-id="@transcaction.Id">
+                                    <i class='bx bx-pencil'></i>
+                                </a>
+                                <a asp-controller="Transaction" asp-action="Delete" asp-route-id="@transcaction.Id">
+                                    <i class='bx bx-trash'></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </td>
+    </tr>
 </table>
 
 <!-- Includes -->
-<link rel="stylesheet" href="/css/transactions.css" />
-<script src="/js//transaction.js"></script>
+<link rel="stylesheet" href="/css/transactions.css" asp-append-version="true" />
+<script src="/js//transaction.js" asp-append-version="true"></script>
