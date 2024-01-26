@@ -1,4 +1,5 @@
 ﻿
+/* Statistics */
 .statistic{
     border-radius: 20px;
     margin: 0 40px 20px;
@@ -40,7 +41,6 @@
 }
 
 /* Sort bar */
-
 .sortbar{
     display: flex;
     align-items: center;
@@ -82,127 +82,125 @@
     color: #444;
 }
 
-/* Table */
-
-table {
-    border-collapse: collapse;
-    margin: 20px 40px;
+/* Tables */
+table.main{
     width: calc(100% - 80px);
+    margin: 20px 40px;
 }
 
-table thead tr th {
+table.head{
+    width: 100%;
+    border-radius: 20px; 
     background-color: white;
-    padding: 10px 20px;
+    padding: 5px 10px;
+}
+
+table.head th{
     font-weight: 400;
-    color: #333;
-    font-size: 15px;
+    color: #666;
 }
 
-table thead tr th:first-of-type{
-    border-radius: 20px 0 0 20px;
-}
-
-table thead tr th:last-of-type {
-    border-radius: 0 20px 20px 0;
-}
-
-tbody:before {
-    content: "@";
-    display: block;
-    line-height: 20px;
-    text-indent: -99999px;
-}
-
-tbody tr {
-    cursor: pointer;
-}
-
-tbody tr td {
+/* Table scrollspace */
+table.main .scroll-space {
+    border-radius: 20px 5px 5px 20px;
     background-color: white;
-    padding: 10px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    max-height: calc(100vh - 400px);
+    margin-top: 20px;
+    padding: 10px 0;
+}
+
+.scroll-space table{
+    width: calc(100% - 20px);
+    margin: 0 10px;
+}
+
+.scroll-space::-webkit-scrollbar{
+    width: 5px;
+}
+
+.scroll-space::-webkit-scrollbar-track{
+    background: rgba(0, 0, 0, 0.0);
+    border-radius: 10px;
+}
+
+.scroll-space::-webkit-scrollbar-thumb{
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.scroll-space::-webkit-scrollbar-thumb:hover{
+    background: rgba(0, 0, 0, 0.5);
+}
+
+/* Tables columns */
+table .type {
+    min-width: 100px;
     text-align: center;
-    font-size: 14px;
+}
+
+table .title{
+    width: 100%;
+    padding-left: 10px;
+    color: #333;
+}
+
+table .amount {
+    min-width: 90px;
+    text-align: center;
     color: #444;
 }
 
-tbody tr:first-of-type td{
-    padding-top: 20px;
-}
-
-tbody tr:last-of-type td {
-    padding-bottom: 20px;
-}
-
-tbody tr:first-of-type td:first-of-type {
-    border-radius: 20px 0 0 0;
-}
-
-tbody tr:first-of-type td:last-of-type {
-    border-radius: 0 20px 0 0;
-}
-
-tbody tr:last-of-type td:first-of-type {
-    border-radius: 0 0 0 20px;
-}
-
-tbody tr:last-of-type td:last-of-type {
-    border-radius: 0 0 20px 0;
-}
-
-tbody tr td.title{
-    text-align: left;
-    width: 100%;
-}
-
-tbody tr td.income, tbody tr td.expense{
-    padding-left: 20px;
-}
-
-tbody tr td.income span {
-    color: #11a700;
-    padding: 3px 6px;
-    background-color: #11a70025;
-    border-radius: 10px;
-}
-
-tbody tr td.expense span {
-    color: #dd2f2f;
-    padding: 3px 6px;
-    background-color: #dd2f2f2a;
-    border-radius: 10px;
-}
-
-tbody tr td.category {
-    color: #6800d0;
-    min-width: 120px;
-}
-
-tbody tr td.date{
-    color: #888;
-}
-
-tbody tr td.actions{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-}
-
-tbody tr td.actions a{
-    text-decoration: none;
-    color: #6800d0;
+table .category {
+    min-width: 140px;
+    text-align: center;
     font-size: 15px;
+    color: #6800d0;
+}
+
+table .date {
+    min-width: 90px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 300;
+    color: #999;
+}
+
+table .actions {
+    min-width: 60px;
+}
+
+table .actions a{
+    text-decoration: none;
     padding: 5px;
-    border-radius: 50px;
-    height: 30px;
-    width: 30px;
+    color: #6800d0;
+}
+
+table.head .actions {
+    min-width: 65px;
+}
+
+table .type span {
+    font-size: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    height: 25px;
+    width: calc(100% - 20px);
+    margin: 10px;
+    background-color: #999;
+    border-radius: 5px;
+    font-weight: 300;
+    text-align: center;
 }
 
-tbody tr td.actions a:hover{
-    background-color: #6800d0;
-    color: white;
+table .expense.type span{
+    color: #dd2f2f;
+    background-color: #dd2f2f2a;
+}
+
+table .income.type span {
+    color: #11a700;
+    background-color: #11a70028;
 }
